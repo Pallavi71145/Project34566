@@ -1,0 +1,121 @@
+using System;
+public class MyClass
+{
+	public static int input()
+	{
+		Console.WriteLine("******\nEnter \n2 for DOWN \n8 for UP \n4 for LEFT \n6 for RIGHT\n0 for EXIT\n********");
+		var k = Convert.ToInt32(Console.ReadLine());
+		return k;
+	}
+	public static void route(int k, int[] a, int i, int n)
+	{
+		switch (k)
+		{
+			case 2:
+				a[i] = 0;
+				i = i + n;
+				if (i < n * n)
+				{
+					a[i] = 1;
+					MyClass.display(a, n);
+					var p = MyClass.input();
+					MyClass.route(p, a, i, n);
+				}
+				else
+				{
+					Console.WriteLine("Can\'t move ");
+					i = i - n;
+					var p = MyClass.input();
+					MyClass.route(p, a, i, n);
+				}
+				break;
+			case 4:
+				a[i] = 0;
+				i--;
+				if (i < n * n)
+				{
+					a[i] = 1;
+					MyClass.display(a, n);
+					var p = MyClass.input();
+					MyClass.route(p, a, i, n);
+				}
+				else
+				{
+					Console.WriteLine("Can\'t move ");
+					i++;
+					var p = MyClass.input();
+					MyClass.route(p, a, i, n);
+				}
+				break;
+			case 6:
+				a[i] = 0;
+				i++;
+				if (i < n * n)
+				{
+					a[i] = 1;
+					MyClass.display(a, n);
+					var p = MyClass.input();
+					MyClass.route(p, a, i, n);
+				}
+				else
+				{
+					Console.WriteLine("Can\'t move ");
+					i--;
+					var p = MyClass.input();
+					MyClass.route(p, a, i, n);
+				}
+				break;
+			case 8:
+				a[i] = 0;
+				i = i - n;
+				if (i >= 0)
+				{
+					a[i] = 1;
+					MyClass.display(a, n);
+					var p = MyClass.input();
+					MyClass.route(p, a, i, n);
+				}
+				else
+				{
+					Console.WriteLine("Can\'t move ");
+					i = i + n;
+					var p = MyClass.input();
+					MyClass.route(p, a, i, n);
+				}
+				break;
+			default:
+				Console.WriteLine("WRONG INPUT");
+				break;
+		}
+	}
+	public static void display(int[] a, int n)
+	{
+		var t = 0;
+		for (var i = 0; i < n; i++)
+		{
+			for (var j = 0; j < n; j++)
+			{
+				Console.Write(a[t++]);
+			}
+			Console.WriteLine();
+		}
+	}
+	public static void Main(String[] args)
+	{
+		Console.WriteLine("Enter size");
+		var n = Convert.ToInt32(Console.ReadLine());
+		var l = n * n;
+		int[] a = new int[l];
+		var i = (int)(l / 2);
+		a[(int)(l / 2)] = 1;
+		/*if(l%2!=0)
+		    a[l/2]=1;
+		  else
+		    a[(l-1)/2]=1;
+		  */
+		MyClass.display(a, n);
+		//int i=12;
+		var k = MyClass.input();
+		MyClass.route(k, a, i, n);
+	}
+}
